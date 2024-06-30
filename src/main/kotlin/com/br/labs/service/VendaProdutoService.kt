@@ -3,7 +3,6 @@ package com.br.labs.service
 import com.br.labs.dto.ProdutosDTO
 import com.br.labs.dto.VendaProdutoDTO
 import com.br.labs.dto.VendasDTO
-import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
 import com.br.labs.repository.VendaProdutoRepository
 import org.springframework.stereotype.Service
