@@ -1,12 +1,11 @@
 package com.br.labs.controller
 
 import com.br.labs.dto.VendaProdutoDTO
+import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
 import com.br.labs.service.VendaProdutoService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 
 @RestController
 @RequestMapping("/labs")
@@ -22,6 +21,14 @@ class VendaProdutosController(
     @GetMapping("/{idVendaProduto}/listar-vendas")
     fun listarVendaById(@PathVariable idVendaProduto: Int): List<VendaProduto> {
         return vendaProdutoService.listarVendasById(idVendaProduto)
+    }
+
+    @GetMapping("/listar-por-data")
+    fun listarVendasPorData(
+        @RequestParam("dataInicio") dataInicio: LocalDate,
+        @RequestParam("dataFim") dataFim: LocalDate
+    ): List<Venda> {
+        return vendaProdutoService.listarVendasPorData(dataInicio, dataFim)
     }
 
     @GetMapping("/listar-produtos")

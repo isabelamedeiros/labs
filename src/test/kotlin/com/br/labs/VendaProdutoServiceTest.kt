@@ -9,6 +9,7 @@ import com.br.labs.model.Usuario
 import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
 import com.br.labs.repository.VendaProdutoRepository
+import com.br.labs.repository.VendaRepository
 import com.br.labs.service.VendaProdutoService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -26,6 +27,9 @@ class VendaProdutoServiceTest {
 
     @Mock
     lateinit var vendaProdutoRepository: VendaProdutoRepository
+
+    @Mock
+    lateinit var vendaRepository: VendaRepository
 
     @InjectMocks
     lateinit var vendaProdutoService: VendaProdutoService
@@ -104,5 +108,27 @@ class VendaProdutoServiceTest {
         val resultado = vendaProdutoService.listarVendasById(idVendaProduto)
         assertEquals(emptyList<VendaProduto>(), resultado)
     }
+
+    @Test
+    fun `Metodo listarVendasPorData deve retornar uma lista de vendas no intervalo de data escolhido`() {
+        val idVendaProduto = 1
+
+        val mockVendaPorData = listOf(
+            Venda(
+                    835,
+                    LocalDate.now(),
+                    BigDecimal.valueOf(1888.02),
+                    Usuario(
+                        88,
+                        "Terra Daniel"
+                    )
+                )
+            )
+
+        `when`(vendaRepository.findByData(LocalDate.now(), LocalDate.now())).thenReturn(mockVendaPorData)
+        val resultado = vendaProdutoService.listarVendasPorData(LocalDate.now(), LocalDate.now())
+        assertEquals(mockVendaPorData, resultado)
+    }
+
 
 }
