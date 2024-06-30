@@ -4,6 +4,16 @@ import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDate
 
+interface VendaProdutoInterface {
+    val idUsuario: Int
+    val nomeUsuario: String
+    val idVenda: Int
+    val totalVenda: BigDecimal
+    val dataVenda: LocalDate
+    val idProduto: Int
+    val valor: BigDecimal
+}
+
 data class VendaProdutoDTO(
     val idUsuario: Int,
     val nomeUsuario: String,

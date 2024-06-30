@@ -1,5 +1,7 @@
 package com.br.labs.repository
 
+import com.br.labs.dto.VendaProdutoDTO
+import com.br.labs.dto.VendaProdutoInterface
 import com.br.labs.model.VendaProduto
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -24,7 +26,7 @@ interface VendaProdutoRepository : JpaRepository<VendaProduto, Int> {
               INNER JOIN labs.produtos p ON p.produto_id = vp.produto_id
               ORDER BY v.data_venda""", nativeQuery = true
     )
-    fun findVendaProdutos(): List<Array<Any>>
+    fun findVendaProdutos(): List<VendaProdutoInterface>
 
 
 }

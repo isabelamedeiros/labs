@@ -3,11 +3,10 @@ package com.br.labs.service
 import com.br.labs.dto.ProdutosDTO
 import com.br.labs.dto.VendaProdutoDTO
 import com.br.labs.dto.VendasDTO
+import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
 import com.br.labs.repository.VendaProdutoRepository
 import org.springframework.stereotype.Service
-import java.math.BigDecimal
-import java.sql.Date
 
 @Service
 class VendaProdutoService(
@@ -24,36 +23,28 @@ class VendaProdutoService(
     fun listarPedidos(): List<VendaProdutoDTO> {
         val resultados = vendaProdutoRepository.findVendaProdutos()
 
-        val listaDTO = resultados.map { result ->
-            val idUsuario = result[0] as Int
-            val nomeUsuario = result[1] as String
-            val idVenda = result[2] as Int
-            val totalVenda = result[3] as BigDecimal
-            val dataVendaSql = result[4] as Date
-            val dataVenda = dataVendaSql.toLocalDate()
-            val idProduto = result[5] as Int
-            val valorProduto = result[6] as BigDecimal
+        val resultadoAgrupado = resultados.groupBy { it.idUsuario }
+
+        return resultadoAgrupado.map { (idUsuario, vendasUsuario) ->
+            val vendasAgrupadas = vendasUsuario.groupBy { it.idVenda }
 
             VendaProdutoDTO(
                 idUsuario = idUsuario,
-                nomeUsuario = nomeUsuario,
-                vendas = listOf(
+                nomeUsuario = vendasUsuario.first().nomeUsuario,
+                vendas = vendasAgrupadas.map { (idVenda, itensVenda) ->
                     VendasDTO(
                         idVenda = idVenda,
-                        totalVenda = totalVenda,
-                        dataVenda = dataVenda,
-                        produtos = listOf(
+                        totalVenda = itensVenda.first().totalVenda,
+                        dataVenda = itensVenda.first().dataVenda,
+                        produtos = itensVenda.map { item ->
                             ProdutosDTO(
-                                idProduto = idProduto,
-                                valor = valorProduto
+                                idProduto = item.idProduto,
+                                valor = item.valor
                             )
-                        )
+                        }
                     )
-                )
+                }
             )
         }
-        return listaDTO
     }
-
-
 }
