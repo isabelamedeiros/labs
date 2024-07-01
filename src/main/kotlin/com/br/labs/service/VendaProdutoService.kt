@@ -2,6 +2,7 @@ package com.br.labs.service
 
 import com.br.labs.dto.ProdutosDTO
 import com.br.labs.dto.VendaProdutoDTO
+import com.br.labs.dto.Vendas
 import com.br.labs.dto.VendasDTO
 import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
@@ -33,17 +34,17 @@ class VendaProdutoService(
         val resultadoAgrupado = resultados.groupBy { it.idUsuario }
 
         return resultadoAgrupado.map { (idUsuario, vendasUsuario) ->
-            val vendasAgrupadas = vendasUsuario.groupBy { it.idVenda }
+            val vendasAgrupadas = vendasUsuario.groupBy { Vendas(it.idVenda, it.totalVenda, it.dataVenda) }
 
             VendaProdutoDTO(
                 idUsuario = idUsuario,
                 nomeUsuario = vendasUsuario.first().nomeUsuario,
-                vendas = vendasAgrupadas.map { (idVenda, itensVenda) ->
+                vendas = vendasAgrupadas.map {
                     VendasDTO(
-                        idVenda = idVenda,
-                        totalVenda = itensVenda.first().totalVenda,
-                        dataVenda = itensVenda.first().dataVenda,
-                        produtos = itensVenda.map { item ->
+                        idVenda = it.key.idVenda,
+                        totalVenda = it.key.totalVenda,
+                        dataVenda = it.key.dataVenda,
+                        produtos = it.value.map { item ->
                             ProdutosDTO(
                                 idProduto = item.idProduto,
                                 valor = item.valor

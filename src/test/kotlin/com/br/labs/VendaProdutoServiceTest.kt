@@ -130,5 +130,30 @@ class VendaProdutoServiceTest {
         assertEquals(mockVendaPorData, resultado)
     }
 
+    @Test
+    fun `Metodo listarDados deve retornar todos os dados de venda`() {
+
+        val mockVendaProdutoDTO = listOf(
+            VendaProduto(
+                Venda(
+                    835,
+                    LocalDate.now(),
+                    BigDecimal.valueOf(1888.02),
+                    Usuario(
+                        88,
+                        "Terra Daniel"
+                    )
+                ),
+                Produto(1,
+                BigDecimal.valueOf(1888.02)
+                )
+            )
+        )
+
+        `when`(vendaProdutoRepository.findAll()).thenReturn(mockVendaProdutoDTO)
+        val resultado = vendaProdutoService.listarDados()
+        assertEquals(mockVendaProdutoDTO, resultado)
+    }
+
 
 }
