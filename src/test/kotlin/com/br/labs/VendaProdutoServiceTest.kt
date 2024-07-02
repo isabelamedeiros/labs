@@ -8,6 +8,8 @@ import com.br.labs.model.Produto
 import com.br.labs.model.Usuario
 import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
+import com.br.labs.repository.ProdutoRepository
+import com.br.labs.repository.UsuarioRepository
 import com.br.labs.repository.VendaProdutoRepository
 import com.br.labs.repository.VendaRepository
 import com.br.labs.service.VendaProdutoService
@@ -31,6 +33,12 @@ class VendaProdutoServiceTest {
     @Mock
     lateinit var vendaRepository: VendaRepository
 
+    @Mock
+    lateinit var usuarioRepository: UsuarioRepository
+
+    @Mock
+    lateinit var produtoRepository: ProdutoRepository
+
     @InjectMocks
     lateinit var vendaProdutoService: VendaProdutoService
 
@@ -42,10 +50,10 @@ class VendaProdutoServiceTest {
                 override val idUsuario = 88
                 override val nomeUsuario = "Terra Daniel"
                 override val idVenda = 836
-                override val totalVenda = BigDecimal("1899.02")
+                override val totalVenda = BigDecimal("1899.0")
                 override val dataVenda = LocalDate.parse("2021-09-09")
                 override val idProduto = 3
-                override val valor = BigDecimal("1899.02")
+                override val valor = 1899.02
             })
 
         val mockVendaProdutoDTO = listOf(
@@ -55,12 +63,12 @@ class VendaProdutoServiceTest {
                 vendas = listOf(
                     VendasDTO(
                         idVenda = 836,
-                        totalVenda = BigDecimal("1899.02"),
+                        totalVenda = 1899.0,
                         dataVenda = LocalDate.parse("2021-09-09"),
                         produtos = listOf(
                             ProdutosDTO(
                                 idProduto = 3,
-                                valor = BigDecimal("1899.02")
+                                valor = 1899.02
                             )
                         )
                     )
@@ -90,7 +98,7 @@ class VendaProdutoServiceTest {
                 ),
                 idProduto = Produto(
                     1,
-                    BigDecimal.valueOf(1888.02)
+                    1888.02
                 )
             )
         )
@@ -145,7 +153,7 @@ class VendaProdutoServiceTest {
                     )
                 ),
                 Produto(1,
-                BigDecimal.valueOf(1888.02)
+                1888.02
                 )
             )
         )
