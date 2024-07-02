@@ -11,7 +11,7 @@ interface VendaProdutoInterface {
     val totalVenda: BigDecimal
     val dataVenda: LocalDate
     val idProduto: Int
-    val valor: BigDecimal
+    val valor: Double
 }
 
 data class VendaProdutoDTO(
@@ -22,20 +22,27 @@ data class VendaProdutoDTO(
 
 data class Vendas(
     val idVenda: Int,
-    val totalVenda: BigDecimal,
-    val dataVenda: LocalDate
+    val totalVenda: BigDecimal?,
+    val dataVenda: LocalDate?
 ) : Serializable
 
 data class VendasDTO(
     val idVenda: Int,
-    val totalVenda: BigDecimal,
-    val dataVenda: LocalDate,
+    val totalVenda: Double?,
+    val dataVenda: LocalDate?,
     val produtos: List<ProdutosDTO>
 ) : Serializable
 
 data class ProdutosDTO(
     val idProduto: Int,
-    val valor: BigDecimal
+    val valor: Double
 ) : Serializable
 
-
+data class Pedido(
+    val idUsuario: Int?,
+    val nome: String,
+    val idVendaProduto: Int?,
+    val idProduto: Int?,
+    val valorProduto: Double,
+    val dataCompra: LocalDate
+)

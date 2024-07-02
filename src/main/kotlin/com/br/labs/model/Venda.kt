@@ -18,7 +18,7 @@ data class Venda(
     val dataVenda: LocalDate,
 
     @Column(name = "total")
-    val totalVenda: BigDecimal,
+    val totalVenda: BigDecimal?,
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")

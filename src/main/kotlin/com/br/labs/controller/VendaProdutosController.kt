@@ -1,10 +1,14 @@
 package com.br.labs.controller
 
+import com.br.labs.dto.Pedido
 import com.br.labs.dto.VendaProdutoDTO
 import com.br.labs.model.Venda
 import com.br.labs.model.VendaProduto
 import com.br.labs.service.VendaProdutoService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDate
 
 @RestController
@@ -35,4 +39,29 @@ class VendaProdutosController(
     fun listarPedidos(): List<VendaProdutoDTO> {
         return vendaProdutoService.listarPedidos()
     }
+
+    @PostMapping("/upload")
+    fun carregarArquivo(
+        @RequestParam("arquivo") arquivo: MultipartFile
+    ): ResponseEntity<List<Pedido>> {
+        return try {
+            val arquivoConvertido = vendaProdutoService.converterArquivos(arquivo)
+            ResponseEntity(arquivoConvertido, HttpStatus.OK)
+        } catch (e: Exception) {
+            ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @PostMapping("/salvar-dados")
+    fun salvarDados(
+        @RequestParam("arquivo") arquivo: MultipartFile
+    ): ResponseEntity<List<Pedido>> {
+        return try {
+            val arquivoConvertido = vendaProdutoService.salvarDados(arquivo)
+            ResponseEntity(arquivoConvertido, HttpStatus.OK)
+        } catch (e: Exception) {
+            ResponseEntity(HttpStatus.BAD_REQUEST)
+        }
+    }
+
 }

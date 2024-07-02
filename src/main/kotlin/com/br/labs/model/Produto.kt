@@ -12,5 +12,5 @@ data class Produto(
     val idProduto: Int? = null,
 
     @Column(name = "valor", length = 12)
-    val valor: BigDecimal
+    val valor: Double
 )
