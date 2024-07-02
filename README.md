@@ -86,7 +86,8 @@ Foi realizado alguns testes unitários usando JUnit e Mockito para garantir que 
 
 ### Diagrama entidade relacionamento
 ![img.png](img.png)
-
+### Dados persistidos
+![img_2.png](img_2.png)
 ## SOLID
 * Princípio da Responsabilidade Única
   * Cada classe ou módulo deve ter apenas uma responsabilidade. A classe VendaProdutoService está focada em fornecer serviços relacionados a vendas de produtos.
