@@ -40,18 +40,6 @@ class VendaProdutosController(
         return vendaProdutoService.listarPedidos()
     }
 
-    @PostMapping("/upload")
-    fun carregarArquivo(
-        @RequestParam("arquivo") arquivo: MultipartFile
-    ): ResponseEntity<List<Pedido>> {
-        return try {
-            val arquivoConvertido = vendaProdutoService.converterArquivos(arquivo)
-            ResponseEntity(arquivoConvertido, HttpStatus.OK)
-        } catch (e: Exception) {
-            ResponseEntity(HttpStatus.BAD_REQUEST)
-        }
-    }
-
     @PostMapping("/salvar-dados")
     fun salvarDados(
         @RequestParam("arquivo") arquivo: MultipartFile

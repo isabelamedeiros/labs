@@ -69,6 +69,10 @@ Foi realizado alguns testes unitários usando JUnit e Mockito para garantir que 
 #### GET /labs/listar-produtos
 * Descrição: Retorna uma lista de pedidos com detalhes de vendas e produtos agrupados por usuário.
 
+### Salvar dados
+#### POST /labs/salvar-dados
+* Descrição: Carrega um arquivo de texto, formata os dados e persiste no banco de dados.
+
 ## Modelagem do banco de dados seguindo as regras de normalização.
 - Não existe mais de uma informação em uma célula.
 - Os dados de cada tabela dependem da chave primaria.
