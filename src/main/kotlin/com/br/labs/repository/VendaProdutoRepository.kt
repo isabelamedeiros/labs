@@ -1,6 +1,5 @@
 package com.br.labs.repository
 
-import com.br.labs.dto.VendaProdutoDTO
 import com.br.labs.dto.VendaProdutoInterface
 import com.br.labs.model.VendaProduto
 import org.springframework.data.jpa.repository.JpaRepository

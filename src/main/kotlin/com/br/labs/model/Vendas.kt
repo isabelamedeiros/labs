@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "vendas", schema = "labs")
-data class Venda(
+data class Vendas(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "venda_id", length = 10)
@@ -22,5 +22,5 @@ data class Venda(
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    val idUsuario: Usuario
+    val idUsuarios: Usuarios?
 )

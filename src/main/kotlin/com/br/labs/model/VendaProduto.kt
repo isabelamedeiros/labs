@@ -7,11 +7,11 @@ import jakarta.persistence.*
 data class VendaProduto(
     @ManyToOne
     @JoinColumn(name = "venda_id")
-    val idVenda: Venda,
+    val idVendas: Vendas,
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    val idProduto: Produto,
+    val idProdutos: Produtos,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

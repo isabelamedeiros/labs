@@ -20,24 +20,6 @@ data class VendaProdutoDTO(
     val vendas: List<VendasDTO>
 ) : Serializable
 
-data class Vendas(
-    val idVenda: Int,
-    val totalVenda: BigDecimal?,
-    val dataVenda: LocalDate?
-) : Serializable
-
-data class VendasDTO(
-    val idVenda: Int,
-    val totalVenda: Double?,
-    val dataVenda: LocalDate?,
-    val produtos: List<ProdutosDTO>
-) : Serializable
-
-data class ProdutosDTO(
-    val idProduto: Int,
-    val valor: Double
-) : Serializable
-
 data class Pedido(
     val idUsuario: Int?,
     val nome: String,

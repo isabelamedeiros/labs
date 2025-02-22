@@ -4,14 +4,14 @@ import com.br.labs.dto.ProdutosDTO
 import com.br.labs.dto.VendaProdutoDTO
 import com.br.labs.dto.VendaProdutoInterface
 import com.br.labs.dto.VendasDTO
-import com.br.labs.model.Produto
-import com.br.labs.model.Usuario
-import com.br.labs.model.Venda
+import com.br.labs.model.Produtos
+import com.br.labs.model.Usuarios
+import com.br.labs.model.Vendas
 import com.br.labs.model.VendaProduto
-import com.br.labs.repository.ProdutoRepository
-import com.br.labs.repository.UsuarioRepository
+import com.br.labs.repository.ProdutosRepository
+import com.br.labs.repository.UsuariosRepository
 import com.br.labs.repository.VendaProdutoRepository
-import com.br.labs.repository.VendaRepository
+import com.br.labs.repository.VendasRepository
 import com.br.labs.service.VendaProdutoService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -25,19 +25,19 @@ import java.math.BigDecimal
 import java.time.LocalDate
 
 @ExtendWith(MockitoExtension::class)
-class VendaProdutoServiceTest {
+class VendasProdutosServiceTest {
 
     @Mock
     lateinit var vendaProdutoRepository: VendaProdutoRepository
 
     @Mock
-    lateinit var vendaRepository: VendaRepository
+    lateinit var vendasRepository: VendasRepository
 
     @Mock
-    lateinit var usuarioRepository: UsuarioRepository
+    lateinit var usuariosRepository: UsuariosRepository
 
     @Mock
-    lateinit var produtoRepository: ProdutoRepository
+    lateinit var produtosRepository: ProdutosRepository
 
     @InjectMocks
     lateinit var vendaProdutoService: VendaProdutoService
@@ -85,27 +85,27 @@ class VendaProdutoServiceTest {
     fun `Metodo listarVendasById deve retornar uma lista de vendas pelo ID`() {
         val idVendaProduto = 1
 
-        val mockVendaProduto = listOf(
+        val mockVendasProdutos = listOf(
             VendaProduto(
-                idVenda = Venda(
+                idVendas = Vendas(
                     835,
                     LocalDate.now(),
                     BigDecimal.valueOf(1888.02),
-                    Usuario(
+                    Usuarios(
                         88,
                         "Terra Daniel"
                     )
                 ),
-                idProduto = Produto(
+                idProdutos = Produtos(
                     1,
                     1888.02
                 )
             )
         )
 
-        `when`(vendaProdutoRepository.findByIdVendaProduto(idVendaProduto)).thenReturn(mockVendaProduto)
-        val resultado = vendaProdutoService.listarVendasById(idVendaProduto)
-        assertEquals(mockVendaProduto, resultado)
+        `when`(vendaProdutoRepository.findByIdVendaProduto(idVendaProduto)).thenReturn(mockVendasProdutos)
+        val resultado = vendaProdutoService.listarVendasProdutoById(idVendaProduto)
+        assertEquals(mockVendasProdutos, resultado)
     }
 
     @Test
@@ -113,7 +113,7 @@ class VendaProdutoServiceTest {
         val idVendaProduto = 999
 
         `when`(vendaProdutoRepository.findByIdVendaProduto(idVendaProduto)).thenReturn(emptyList())
-        val resultado = vendaProdutoService.listarVendasById(idVendaProduto)
+        val resultado = vendaProdutoService.listarVendasProdutoById(idVendaProduto)
         assertEquals(emptyList<VendaProduto>(), resultado)
     }
 
@@ -121,46 +121,46 @@ class VendaProdutoServiceTest {
     fun `Metodo listarVendasPorData deve retornar uma lista de vendas no intervalo de data escolhido`() {
         val idVendaProduto = 1
 
-        val mockVendaPorData = listOf(
-            Venda(
+        val mockVendasPorData = listOf(
+            Vendas(
                     835,
                     LocalDate.now(),
                     BigDecimal.valueOf(1888.02),
-                    Usuario(
+                    Usuarios(
                         88,
                         "Terra Daniel"
                     )
                 )
             )
 
-        `when`(vendaRepository.findByData(LocalDate.now(), LocalDate.now())).thenReturn(mockVendaPorData)
+        `when`(vendasRepository.findByData(LocalDate.now(), LocalDate.now())).thenReturn(mockVendasPorData)
         val resultado = vendaProdutoService.listarVendasPorData(LocalDate.now(), LocalDate.now())
-        assertEquals(mockVendaPorData, resultado)
+        assertEquals(mockVendasPorData, resultado)
     }
 
     @Test
     fun `Metodo listarDados deve retornar todos os dados de venda`() {
 
-        val mockVendaProdutoDTO = listOf(
+        val mockVendasProdutosDTO = listOf(
             VendaProduto(
-                Venda(
+                Vendas(
                     835,
                     LocalDate.now(),
                     BigDecimal.valueOf(1888.02),
-                    Usuario(
+                    Usuarios(
                         88,
                         "Terra Daniel"
                     )
                 ),
-                Produto(1,
+                Produtos(1,
                 1888.02
                 )
             )
         )
 
-        `when`(vendaProdutoRepository.findAll()).thenReturn(mockVendaProdutoDTO)
+        `when`(vendaProdutoRepository.findAll()).thenReturn(mockVendasProdutosDTO)
         val resultado = vendaProdutoService.listarDados()
-        assertEquals(mockVendaProdutoDTO, resultado)
+        assertEquals(mockVendasProdutosDTO, resultado)
     }
 
 
